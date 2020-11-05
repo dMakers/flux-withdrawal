@@ -1,3 +1,6 @@
 export const SAVE_LIST = 'withdrawal/SAVE_LIST'
 export const SAVE_NODE = 'withdrawal/SAVE_NODE'
 export const SAVE_RECIPIENT = 'withdrawal/SAVE_RECIPIENT'
+export const SAVE_TARGET = 'withdrawal/SAVE_TARGET'
+export const SAVE_TX = 'withdrawal/SAVE_TX'
+export const RESET_LIST = 'withdrawal/RESET_LIST'
