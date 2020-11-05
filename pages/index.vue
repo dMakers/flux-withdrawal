@@ -37,7 +37,7 @@ export default {
   name: 'HomePage',
   data() {
     return {
-      node: '0xeE4eD7389A1C565CE7Ba4586D86D049780d2fE5d',
+      node: '',
       list: '',
       recipient: '',
       selectedContracts: [],
