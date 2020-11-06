@@ -15,7 +15,8 @@ const gasOracle = new GasPriceOracle()
 export default {
   async processUserData({ commit, dispatch }, { list, node, recipient }) {
     commit(RESET_LIST)
-    const parsedList = list.includes(',') ? list.split(',') : list.split('\n')
+    let parsedList = list.includes(',') ? list.split(',') : list.split('\n')
+    parsedList = new Set(parsedList)
     commit(SAVE_LIST, { list: parsedList })
     commit(SAVE_NODE, { node })
     commit(SAVE_RECIPIENT, { recipient })
