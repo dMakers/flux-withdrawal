@@ -9,24 +9,29 @@ import {
   SAVE_TARGET,
   SAVE_TX,
   RESET_LIST,
+  SAVE_TOTAL,
 } from './constants'
 const gasOracle = new GasPriceOracle()
 
 export default {
-  async processUserData({ commit, dispatch }, { list, node, recipient }) {
+  async processUserData(
+    { state, commit, dispatch },
+    { list, node, recipient }
+  ) {
     commit(RESET_LIST)
     let parsedList = list.includes(',') ? list.split(',') : list.split('\n')
     parsedList = new Set(parsedList)
     commit(SAVE_LIST, { list: parsedList })
     commit(SAVE_NODE, { node })
     commit(SAVE_RECIPIENT, { recipient })
+
     for (const contract of parsedList) {
       const flux = this.$provider.getContract({
         abi: ABI,
         address: contract,
       })
       const payment = await flux.methods.withdrawablePayment(node).call()
-
+      commit(SAVE_TOTAL, { total: state.total.add(toBN(payment)) })
       commit(SAVE_TARGET, { contract, payment })
     }
   },

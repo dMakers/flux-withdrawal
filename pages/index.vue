@@ -18,6 +18,14 @@
         {{ target.contract }} - {{ renderPayment(target.payment) }}
       </b-checkbox>
     </b-field>
+    <b-field grouped>
+      <b-field label="Total avaliable">
+        {{ totalLink }}
+      </b-field>
+      <b-field label="Total withdrawal">
+        {{ totalWithdrawal }}
+      </b-field>
+    </b-field>
     <b-field class="mt-5" label="Recipient">
       <b-input v-model="recipient"></b-input>
     </b-field>
@@ -31,8 +39,8 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
-import { fromWei } from 'web3-utils'
+import { mapActions, mapState, mapGetters } from 'vuex'
+import { fromWei, toBN } from 'web3-utils'
 export default {
   name: 'HomePage',
   data() {
@@ -45,6 +53,17 @@ export default {
   },
   computed: {
     ...mapState('withdrawal', ['targets', 'txs']),
+    ...mapGetters('withdrawal', ['totalLink']),
+    totalWithdrawal() {
+      return fromWei(
+        this.selectedContracts
+          .reduce((acc, { payment }) => {
+            acc = acc.add(toBN(payment))
+            return acc
+          }, toBN(0))
+          .toString()
+      )
+    },
   },
   mounted() {
     setTimeout(() => {

@@ -5,6 +5,7 @@ import {
   SAVE_TARGET,
   SAVE_TX,
   RESET_LIST,
+  SAVE_TOTAL,
 } from './constants'
 
 export default {
@@ -26,5 +27,8 @@ export default {
   [RESET_LIST](state) {
     state.contracts = []
     state.targets = []
+  },
+  [SAVE_TOTAL](state, { total }) {
+    state.total = total
   },
 }

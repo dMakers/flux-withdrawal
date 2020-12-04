@@ -1,3 +1,7 @@
+import { fromWei } from 'web3-utils'
+
 export default {
-  // fluxContract: (state) => (address) => {},
+  totalLink: (state) => {
+    return fromWei(state.total.toString())
+  },
 }
