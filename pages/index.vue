@@ -10,8 +10,9 @@
     <b-field label="Contracts list">
       <b-input v-model="list" type="textarea"></b-input>
     </b-field>
-    <b-field>
+    <b-field class="buttons">
       <b-button type="is-info" @click="onProcess">Process</b-button>
+      <b-button type="is-info" @click="onSelectAll">Select all</b-button>
     </b-field>
     <b-field v-for="target in targets" :key="target.contract">
       <b-checkbox v-model="selectedContracts" :native-value="target">
@@ -78,6 +79,9 @@ export default {
         node: this.node,
         recipient: this.recipient,
       })
+    },
+    onSelectAll() {
+      this.selectedContracts = this.targets
     },
     onWithdraw() {
       this.withdraw({ targets: this.selectedContracts })

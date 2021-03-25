@@ -37,7 +37,13 @@ export default {
   },
   async withdraw({ state, commit, dispatch }, { targets }) {
     console.log('targets', targets)
-    const { fast } = await gasOracle.gasPrices()
+    const netId = await this.$provider.config.id
+    let fast
+    if (Number(netId) === 1) {
+      ;({ fast } = await gasOracle.gasPrices())
+    } else {
+      fast = 10
+    }
     for (const { contract, payment } of targets) {
       console.log('contract', contract)
       const flux = this.$provider.getContract({
